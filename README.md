@@ -1,94 +1,66 @@
 ![C#](https://img.shields.io/badge/C%23-.NET%208.0-blue?logo=csharp)
 ![Windows](https://img.shields.io/badge/Windows-NT-blue?logo=windows)
-![Security Research](https://img.shields.io/badge/purpose-detection%20engineering-red)
-![Network](https://img.shields.io/badge/network-HTTP%20analysis-purple)
+![Research](https://img.shields.io/badge/purpose-security%20research-red)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 # ⚡ ShadowSync – File Collection & Transfer Research Tool (.NET)
 
-> ⚠️ Security research & defensive analysis only
-
-## 🚀 Purpose
-
-**ShadowSync** is a security research tool built in **C#** aimed at analyzing **file enumeration** and **remote data transfer behaviors** commonly associated with data exfiltration and malicious software.
-
-This project focuses on:
-
-- **Simulating sensitive file collection**: Identifying and categorizing specific file types (documents, credentials, archives).
-- **File transfer simulation**: Mimicking data exfiltration over HTTP(S) protocols (like WebDAV) to a remote endpoint.
-- **Obfuscation techniques**: Demonstrating how malicious tools hide sensitive configuration data using ROT13 and XOR encoding to evade static analysis.
-- **Detecting data exfiltration**: Helping security teams identify suspicious file transfer activities.
+**ShadowSync** is a **C#** tool designed for **educational purposes** and **security research**. It simulates file enumeration, filtering, and transfer behaviors that resemble data exfiltration techniques often used by malware.
 
 ---
 
-## 🧠 Research Goals
+## 🚀 What it Does
 
-This tool is designed for:
-
-- **Endpoint Detection & Response (EDR) research**
-- **Data Loss Prevention (DLP) strategy validation**
-- **Malware behavior simulation** (safe lab environments)
-- **Network telemetry analysis**
-- **Threat hunting rule development**
+- Scans directories for files with specific extensions and sizes (e.g., `.docx`, `.xlsx`, `.pdf`, `.zip`, etc.)
+- Transfers selected files to a remote server via HTTP PUT requests (simulating data exfiltration)
+- Uses simple obfuscation techniques (ROT13 + XOR) to encode sensitive configuration values like URLs and credentials
+- Demonstrates basic network communication patterns for research into data transfer over the internet
 
 ---
 
-## ⚙️ Observed Behaviors (Research Model)
+## ⚙️ How it Works
 
-### 1. File System Enumeration
-The tool recursively scans directories and identifies files based on:
-- File extensions (documents, credentials, archives, etc.)
-- File size thresholds (to avoid large payloads)
-- Sensitive data categorization (e.g., passwords, email contents)
-
----
-
-### 2. File Classification Model
-Files are grouped into categories such as:
-- **Office documents** (`.docx`, `.xlsx`, `.pdf`)
-- **Archives** (`.zip`, `.bak`)
-- **Credential stores** (`.kdbx`, `.pem`)
-- **Communication exports** (`.msg`, `.eml`)
+1. **File Enumeration**: Recursively scans a specified directory and filters files based on extension and size.
+2. **File Transfer**: Files are uploaded to a remote WebDAV-like endpoint using HTTP PUT requests.
+3. **Obfuscation**: Sensitive data like URLs and credentials are obfuscated using ROT13 and XOR.
+4. **Network Simulation**: Mimics exfiltration patterns by sending files over HTTP(S).
 
 ---
 
-### 3. Network Transfer Simulation
-The project models **HTTP-based file transfer behavior**:
-- Uses **PUT requests** to simulate file uploads
-- Implements **retry logic** and **long-running connections**
-- Demonstrates **Basic Authentication** for communication
+## 🧳 Anti-VM & Anti-Debugging Features
+
+To avoid detection in **virtual machines** or **debugger environments**, **ShadowSync** implements several defensive techniques:
+
+### 1. **Anti-Low Memory Check**
+The program performs a check to determine if the system has at least **2GB of RAM**. This prevents the tool from running in environments with insufficient resources. If the system fails this check, the program will terminate automatically with the following message:
+[!] Low memory detected! Exiting...
+
+### 2. **Anti-Debug**
+- The program checks for active debuggers using common techniques, such as:
+  - **PEB (Process Environment Block)** checks
+  - **IsDebuggerPresent** API calls
+
+  ### 3. **Blacklisted process**
+- The program checks if any blacklisted processes are running on the system. These processes are often associated with monitoring or anti-malware tools that could interfere with or flag the behavior of ShadowSync. The program will terminate if such a process is detected, with the following message:
+ [!] Blacklisted process detected! Exiting...
+  
+If these conditions are detected, the program either terminates itself or alters its behavior to avoid being analyzed.
 
 ---
 
-### 4. Configuration Obfuscation
-Sensitive configuration values such as URLs and credentials are obfuscated using:
-- **ROT13 transformation**
-- **XOR encoding** (with a static key `0x09`)
+## 📦 Requirements
 
-These techniques simulate common evasion tactics used by malware to avoid static detection.
-
+- **.NET Framework 4.8 or later**
+  
 ---
 
-## 🌐 Security Research Context
+## 🛠️ Usage
 
-This repository is relevant for:
-- **Malware behavior analysis**
-- **Detection engineering** (Sigma/YARA rules)
-- **Incident response investigation patterns**
-- **Endpoint telemetry correlation**
-- **Data exfiltration simulation in lab environments**
+1. Clone this repository.
+2. Build the project using **Visual Studio** or the **dotnet CLI**.
 
----
-
-## 🧪 Detection Opportunities
-
-This tool can be used to design detections for:
-
-- **Unusual bulk file reads** from user directories
-- **Suspicious HTTP PUT requests** (large file uploads)
-- **Encoded configuration decoding at runtime**
-- **Repeated directory traversal patterns**
-- **Suspicious file access** based on extension/type
+```bash
+dotnet build
 
 ---
 
