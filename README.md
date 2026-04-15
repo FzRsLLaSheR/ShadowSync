@@ -12,7 +12,7 @@
 ## 🚀 What it Does
 
 - Scans directories for files with specific extensions and sizes (e.g., `.docx`, `.xlsx`, `.pdf`, `.zip`, etc.)
-- Transfers selected files to a remote server via HTTP PUT requests (simulating data exfiltration)
+- Transfers selected files to a remote server using **WebDAV** (simulating data exfiltration)
 - Uses simple obfuscation techniques (ROT13 + XOR) to encode sensitive configuration values like URLs and credentials
 - Demonstrates basic network communication patterns for research into data transfer over the internet
 
@@ -21,9 +21,9 @@
 ## ⚙️ How it Works
 
 1. **File Enumeration**: Recursively scans a specified directory and filters files based on extension and size.
-2. **File Transfer**: Files are uploaded to a remote WebDAV-like endpoint using HTTP PUT requests.
+2.  **File Transfer via WebDAV**: Files are uploaded to a remote WebDAV server using HTTP PUT requests, a common method for remote file storage and transfer.
 3. **Obfuscation**: Sensitive data like URLs and credentials are obfuscated using ROT13 and XOR.
-4. **Network Simulation**: Mimics exfiltration patterns by sending files over HTTP(S).
+4. **Network Simulation**: Mimics exfiltration patterns by sending files over HTTP(S) using WebDAV.
 
 ---
 
