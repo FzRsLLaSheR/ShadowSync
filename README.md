@@ -8,10 +8,6 @@
 
 > ⚠️ Security research & defensive analysis only
 
-As of 2026-04-15, this project is designed for studying **file collection patterns, sensitive data exposure risks, and network transfer behaviors** in controlled environments for defensive cybersecurity research.
-
----
-
 ## 🚀 Purpose
 
 **ShadowSync** is a security research tool built in **C#** aimed at analyzing **file enumeration** and **remote data transfer behaviors** commonly associated with data exfiltration and malicious software.
