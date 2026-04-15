@@ -54,27 +54,6 @@ If these conditions are detected, the program either terminates itself or alters
   
 ---
 
-## 🛠️ Usage
-
-1. Clone this repository.
-2. Build the project using **Visual Studio** or the **dotnet CLI**.
-
-```bash
-dotnet build
-
----
-
-## 🛑 Safe Usage Scope
-
-This project should only be used in:
-
-- **Isolated virtual machines**
-- **Malware analysis sandboxes**
-- **Authorized security research environments**
-- **Academic cybersecurity labs**
-
----
-
 ## ⚠️ Disclaimer
 
 This software is provided strictly for **educational and defensive research purposes only**.
